@@ -24,7 +24,7 @@ package org.apache.flink.streaming.examples.wordcount.util;
  */
 public class WordCountData {
 
-    public static final String[] WORDS =
+    public static final String[] WORDS_ORIGINAL =
             new String[] {
                 "To be, or not to be,--that is the question:--",
                 "Whether 'tis nobler in the mind to suffer",
@@ -61,5 +61,19 @@ public class WordCountData {
                 "And lose the name of action.--Soft you now!",
                 "The fair Ophelia!--Nymph, in thy orisons",
                 "Be all my sins remember'd."
+            };
+
+    public static final String[] WORDS =
+            new String[] {
+                "a",
+                "a b",
+                "a b c",
+                "a b c d",
+                "a b c d e",
+                "a b c d e f",
+                "a b c d e f g",
+                "a b c d e f g h",
+                "a b c d e f g h i",
+                "a b c d e f g h i j"
             };
 }

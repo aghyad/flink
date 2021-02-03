@@ -337,6 +337,33 @@ under the License.
 						</configuration>
 					</execution>
 
+					<!-- WindowWordCount -->
+					<execution>
+						<id>WindowWordCount</id>
+						<phase>package</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+						<configuration>
+							<classifier>WindowWordCount</classifier>
+
+							<archive>
+								<manifestEntries>
+									<program-class>org.apache.flink.streaming.examples.windowing.WindowWordCount</program-class>
+								</manifestEntries>
+							</archive>
+
+							<includes>
+								<include>org/apache/flink/streaming/examples/windowing/WindowWordCount.class</include>
+								<include>org/apache/flink/streaming/examples/wordcount/WordCount.class</include>
+								<include>org/apache/flink/streaming/examples/wordcount/WordCount$*.class</include>
+								<include>org/apache/flink/streaming/examples/wordcount/util/WordCountData.class</include>
+								<include>META-INF/LICENSE</include>
+								<include>META-INF/NOTICE</include>
+							</includes>
+						</configuration>
+					</execution>
+
 					<!-- SocketWindowWordCount -->
 					<execution>
 						<id>SocketWindowWordCount</id>
@@ -412,6 +439,60 @@ under the License.
 						</configuration>
 					</execution>
 
+					<!-- SlideWindowSimulation1 -->
+					<execution>
+						<id>SlideWindowSimulation1</id>
+						<phase>package</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+						<configuration>
+							<classifier>SlideWindowSimulation1</classifier>
+
+							<archive>
+								<manifestEntries>
+									<program-class>org.apache.flink.streaming.examples.pvl.simulation1.SlideWindowSimulation1</program-class>
+								</manifestEntries>
+							</archive>
+
+							<includes>
+								<include>org/apache/flink/streaming/examples/pvl/simulation1/SlideWindowSimulation1.class</include>
+								<include>org/apache/flink/streaming/examples/pvl/simulation1/util/DataDictionary.class</include>
+								<include>org/apache/flink/streaming/examples/pvl/simulation1/util/MyDataElement.class</include>
+								<include>org/apache/flink/streaming/examples/pvl/simulation1/util/MyProcessWindowFunction.class</include>
+								<include>META-INF/LICENSE</include>
+								<include>META-INF/NOTICE</include>
+							</includes>
+						</configuration>
+					</execution>
+
+					<!-- SlideWindowSimulation2 -->
+					<execution>
+						<id>SlideWindowSimulation2</id>
+						<phase>package</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+						<configuration>
+							<classifier>SlideWindowSimulation2</classifier>
+
+							<archive>
+								<manifestEntries>
+									<program-class>org.apache.flink.streaming.examples.pvl.simulation2.SlideWindowSimulation2</program-class>
+								</manifestEntries>
+							</archive>
+
+							<includes>
+								<include>org/apache/flink/streaming/examples/pvl/simulation2/SlideWindowSimulation2.class</include>
+								<include>org/apache/flink/streaming/examples/pvl/simulation2/util/DataDictionary.class</include>
+								<include>org/apache/flink/streaming/examples/pvl/simulation2/util/MyDataElement.class</include>
+								<include>org/apache/flink/streaming/examples/pvl/simulation2/util/MyWindowFunction.class</include>
+								<include>META-INF/LICENSE</include>
+								<include>META-INF/NOTICE</include>
+							</includes>
+						</configuration>
+					</execution>
+
 				</executions>
 			</plugin>
 
@@ -450,6 +531,14 @@ under the License.
 						</configuration>
 					</execution>
 				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
 			</plugin>
 
 			<!-- Scala Compiler -->
@@ -563,7 +652,10 @@ under the License.
 								<copy file="${project.basedir}/target/flink-examples-streaming_${scala.binary.version}-${project.version}-TopSpeedWindowing.jar" tofile="${project.basedir}/target/TopSpeedWindowing.jar" />
 								<copy file="${project.basedir}/target/flink-examples-streaming_${scala.binary.version}-${project.version}-WindowJoin.jar" tofile="${project.basedir}/target/WindowJoin.jar" />
 								<copy file="${project.basedir}/target/flink-examples-streaming_${scala.binary.version}-${project.version}-WordCount.jar" tofile="${project.basedir}/target/WordCount.jar" />
+								<copy file="${project.basedir}/target/flink-examples-streaming_${scala.binary.version}-${project.version}-WindowWordCount.jar" tofile="${project.basedir}/target/WindowWordCount.jar" />
 								<copy file="${project.basedir}/target/flink-examples-streaming_${scala.binary.version}-${project.version}-SocketWindowWordCount.jar" tofile="${project.basedir}/target/SocketWindowWordCount.jar" />
+								<copy file="${project.basedir}/target/flink-examples-streaming_${scala.binary.version}-${project.version}-SlideWindowSimulation1.jar" tofile="${project.basedir}/target/SlideWindowSimulation1.jar" />
+								<copy file="${project.basedir}/target/flink-examples-streaming_${scala.binary.version}-${project.version}-SlideWindowSimulation2.jar" tofile="${project.basedir}/target/SlideWindowSimulation2.jar" />
 							</target>
 						</configuration>
 					</execution>
