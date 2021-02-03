@@ -4,16 +4,16 @@ public class MyDataElement {
 
     public String value;
     public String partitionKey;
-    private int sleepLimitInSecs;
+    private int delayInSecs;
 
-    public MyDataElement(String value, String partitionKey, int sleepLimitInSecs) {
+    public MyDataElement(String value, String partitionKey, int delayInSecs) {
         this.value = value;
         this.partitionKey = partitionKey;
-        this.sleepLimitInSecs = sleepLimitInSecs;
+        this.delayInSecs = delayInSecs;
     }
 
     public String delayedGetValue() throws InterruptedException {
-        Thread.sleep(this.sleepLimitInSecs * 1000);
+        Thread.sleep(this.delayInSecs * 1000);
         return this.value;
     }
 }

@@ -16,12 +16,12 @@ public class MyWindowFunction implements WindowFunction<String, String, String, 
     public void apply(String s, TimeWindow window, Iterable<String> elements, Collector<String> out)
             throws Exception {
 
-        String windowContent = String.join("", elements);
-        int windowContentSize = windowContent.length();
+        int windowContentSize = String.join("", elements).length();
+        String windowContent = String.join(" ", elements);
 
         if (windowContentSize == dumpToDynamoSize) {
             System.out.printf(
-                    "*** stopped [window=%d] *** : %s\n", windowContentSize, windowContent);
+                    "*** STORE DATA [window=%d] *** : %s\n", windowContentSize, windowContent);
         } else {
             System.out.printf(
                     "*** streaming [window=%d] *** : %s\n", windowContentSize, windowContent);
