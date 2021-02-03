@@ -2,9 +2,6 @@ package org.apache.flink.streaming.examples.pvl.simulation2.util;
 
 public class DataDictionary {
 
-    private String partitionKey;
-    //    private int submitDelayInSecs;
-
     private final int[] dataDelayInSecs = {
         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 5, 5, 5, 5, 5, 5, 5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 5,
         5, 5, 5, 30
@@ -15,21 +12,16 @@ public class DataDictionary {
                 "r", "s", "t", "u", "v", "w", "x", "y", "z", "1", "2", "3", "4", "5", "6", "7", "8",
                 "%%%"
             };
+    private String partitionKey = "VIN123ABC567";
+    public MyDataHashMap[] DATA_LIST = new MyDataHashMap[dataArray.length];
 
-    public MyDataElement[] DATA_LIST = new MyDataElement[dataArray.length];
-
-    //    public DataDictionary(String partitionKey, int submitDelayInSecs) {
-    public DataDictionary(String partitionKey) {
-        this.partitionKey = partitionKey;
-        //        this.submitDelayInSecs = submitDelayInSecs;
-
+    public DataDictionary() {
         for (int i = 0; i < dataArray.length; i++) {
-            DATA_LIST[i] =
-                    new MyDataElement(dataArray[i], this.partitionKey, dataDelayInSecs[i]);
+            DATA_LIST[i] = new MyDataHashMap(dataArray[i], partitionKey, dataDelayInSecs[i]);
         }
     }
 
-    public MyDataElement[] getDataList() {
+    public MyDataHashMap[] getDataList() {
         return DATA_LIST;
     }
 }

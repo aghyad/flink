@@ -1,4 +1,4 @@
-package org.apache.flink.streaming.examples.pvl.simulation2.util;
+package org.apache.flink.streaming.examples.pvl.simulation2.deprecated;
 
 public class MyDataElement {
 

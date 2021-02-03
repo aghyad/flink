@@ -485,7 +485,7 @@ under the License.
 							<includes>
 								<include>org/apache/flink/streaming/examples/pvl/simulation2/SlideWindowSimulation2.class</include>
 								<include>org/apache/flink/streaming/examples/pvl/simulation2/util/DataDictionary.class</include>
-								<include>org/apache/flink/streaming/examples/pvl/simulation2/util/MyDataElement.class</include>
+								<include>org/apache/flink/streaming/examples/pvl/simulation2/util/MyDataHashMap.class</include>
 								<include>org/apache/flink/streaming/examples/pvl/simulation2/util/MyWindowFunction.class</include>
 								<include>META-INF/LICENSE</include>
 								<include>META-INF/NOTICE</include>

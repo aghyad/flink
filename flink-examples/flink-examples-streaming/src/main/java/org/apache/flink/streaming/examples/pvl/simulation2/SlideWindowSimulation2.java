@@ -6,7 +6,7 @@ import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.windowing.assigners.SlidingProcessingTimeWindows;
 import org.apache.flink.streaming.api.windowing.time.Time;
 import org.apache.flink.streaming.examples.pvl.simulation2.util.DataDictionary;
-import org.apache.flink.streaming.examples.pvl.simulation2.util.MyDataElement;
+import org.apache.flink.streaming.examples.pvl.simulation2.util.MyDataHashMap;
 import org.apache.flink.streaming.examples.pvl.simulation2.util.MyWindowFunction;
 
 public class SlideWindowSimulation2 {
@@ -58,28 +58,27 @@ public class SlideWindowSimulation2 {
         final int windowSizeInSecs = params.getInt("window", 15);
         final int slideSizeInSecs = params.getInt("slide", 1);
         final String partitionKey = params.get("partitionKey", "VIN123ABC567");
-        //        final int submitDelayInSecs = params.getInt("submitDelayInSecs", 1);
         final int dumpToDynamoSize = params.getInt("dumpToDynamoSize", 10);
 
         // get the default input data
         System.out.println("Executing SlideWindowSimulation2 example with default input data set.");
         System.out.println("Use --input to specify file input.");
-        //        DataDictionary dataDictionary = new DataDictionary(partitionKey,
-        // submitDelayInSecs);
-        DataDictionary dataDictionary = new DataDictionary(partitionKey);
-        DataStream<MyDataElement> dataStream = env.fromElements(dataDictionary.getDataList());
+
+        DataDictionary dataDictionary = new DataDictionary();
+        DataStream<MyDataHashMap> dataStream = env.fromElements(dataDictionary.getDataList());
 
         dataStream
                 .map(
                         dataElement -> {
                             try {
-                                return dataElement.delayedGetValue();
+                                dataElement.injectDelay();
+                                return dataElement;
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
-                                return dataElement.value;
+                                return dataElement;
                             }
                         })
-                .keyBy(dataElement -> "VIN123ABC567")
+                .keyBy(dataElement -> dataElement.getPartitionKey())
                 .window(
                         SlidingProcessingTimeWindows.of(
                                 Time.seconds(windowSizeInSecs), Time.seconds(slideSizeInSecs)))

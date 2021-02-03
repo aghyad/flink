@@ -4,7 +4,7 @@ import org.apache.flink.streaming.api.functions.windowing.WindowFunction;
 import org.apache.flink.streaming.api.windowing.windows.TimeWindow;
 import org.apache.flink.util.Collector;
 
-public class MyWindowFunction implements WindowFunction<String, String, String, TimeWindow> {
+public class MyWindowFunction implements WindowFunction<MyDataHashMap, String, String, TimeWindow> {
 
     private int dumpToDynamoSize;
 
@@ -13,18 +13,26 @@ public class MyWindowFunction implements WindowFunction<String, String, String, 
     }
 
     @Override
-    public void apply(String s, TimeWindow window, Iterable<String> elements, Collector<String> out)
+    public void apply(
+            String s, TimeWindow window, Iterable<MyDataHashMap> elements, Collector<String> out)
             throws Exception {
 
-        int windowContentSize = String.join("", elements).length();
-        String windowContent = String.join(" ", elements);
+        int windowContentSize = 0;
+        String windowContent = "";
+
+        for (MyDataHashMap elem : elements) {
+            windowContent += " " + elem.getValue();
+            windowContentSize++;
+        }
 
         if (windowContentSize == dumpToDynamoSize) {
             System.out.printf(
-                    "*** STORE DATA [window=%d] *** : %s\n", windowContentSize, windowContent);
+                    "*** STORE DATA [window=%d] *** : %s\n",
+                    windowContentSize, windowContent.trim());
         } else {
             System.out.printf(
-                    "*** streaming [window=%d] *** : %s\n", windowContentSize, windowContent);
+                    "*** streaming [window=%d] *** : %s\n",
+                    windowContentSize, windowContent.trim());
         }
     }
 }
