@@ -1,5 +1,6 @@
 package org.apache.flink.streaming.examples.pvl.simulation3;
 
+import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 import org.apache.flink.api.java.utils.ParameterTool;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
@@ -8,6 +9,8 @@ import org.apache.flink.streaming.api.windowing.time.Time;
 import org.apache.flink.streaming.examples.pvl.simulation3.util.DataDictionary;
 import org.apache.flink.streaming.examples.pvl.simulation3.util.MyDataHashMap;
 import org.apache.flink.streaming.examples.pvl.simulation3.util.MyWindowFunction;
+
+import java.time.Duration;
 
 public class SlideWindowSimulation3 {
 
@@ -39,6 +42,14 @@ public class SlideWindowSimulation3 {
         }
 
         DataStream<MyDataHashMap> dataStream = env.fromElements(dataDictionary.getDataList());
+
+        WatermarkStrategy myWatermarkStrategy =
+                WatermarkStrategy.<MyDataHashMap>forBoundedOutOfOrderness(Duration.ofSeconds(5))
+                        .withTimestampAssigner(
+                                (dataElement, timestamp) ->
+                                        dataElement.getEventTimestamp().getTime());
+
+        dataStream = dataStream.assignTimestampsAndWatermarks(myWatermarkStrategy);
 
         dataStream
                 .map(
