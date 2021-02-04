@@ -27,7 +27,6 @@ public class SlideWindowSimulation3 {
 
         final int windowSizeInSecs = params.getInt("window", 15);
         final int slideSizeInSecs = params.getInt("slide", 1);
-        final String partitionKey = params.get("partitionKey", "VIN123ABC567");
         final int dumpToDynamoSize = params.getInt("dumpToDynamoSize", 10);
 
         // get the default input data
@@ -35,6 +34,10 @@ public class SlideWindowSimulation3 {
         System.out.println("Use --input to specify file input.");
 
         DataDictionary dataDictionary = new DataDictionary();
+        for (MyDataHashMap elem : dataDictionary.getDataList()) {
+            System.out.println(elem.getValue() + " ---> " + elem.getEventTimestamp().toString());
+        }
+
         DataStream<MyDataHashMap> dataStream = env.fromElements(dataDictionary.getDataList());
 
         dataStream
