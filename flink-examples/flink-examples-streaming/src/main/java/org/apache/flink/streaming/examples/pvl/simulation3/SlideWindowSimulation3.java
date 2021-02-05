@@ -41,15 +41,15 @@ public class SlideWindowSimulation3 {
             System.out.println(elem.getValue() + " ---> " + elem.getEventTimestamp().toString());
         }
 
-        DataStream<MyDataHashMap> dataStream = env.fromElements(dataDictionary.getDataList());
-
         WatermarkStrategy myWatermarkStrategy =
                 WatermarkStrategy.<MyDataHashMap>forBoundedOutOfOrderness(Duration.ofSeconds(5))
                         .withTimestampAssigner(
                                 (dataElement, timestamp) ->
                                         dataElement.getEventTimestamp().getTime());
 
-        dataStream = dataStream.assignTimestampsAndWatermarks(myWatermarkStrategy);
+        DataStream<MyDataHashMap> dataStream =
+                env.fromElements(dataDictionary.getDataList())
+                        .assignTimestampsAndWatermarks(myWatermarkStrategy);
 
         dataStream
                 .map(

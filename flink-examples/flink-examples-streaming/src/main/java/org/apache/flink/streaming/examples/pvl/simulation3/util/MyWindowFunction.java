@@ -27,7 +27,7 @@ public class MyWindowFunction implements WindowFunction<MyDataHashMap, String, S
 
         if (windowContentSize == dumpToDynamoSize) {
             System.out.printf(
-                    "*** STORE DATA [window=%d] *** : %s\n",
+                    "*** streaming [window=%d] *** : %s    ----> STORE DATA\n",
                     windowContentSize, windowContent.trim());
         } else {
             System.out.printf(
