@@ -62,14 +62,14 @@ public class MyWindowFunction
             }
 
             System.out.printf(
-                    "*** streaming [window=%d] *** : %s    ----> STORE Subwindow [window=%d] %s\n",
+                    "    ----> Current Window  [size=%d] %s\n    ----> Store Subwindow [size=%d] %s\n\n",
                     windowContentSize,
                     windowContent.trim(),
                     subWindowContentSize,
                     subWindowContent.trim());
         } else {
             System.out.printf(
-                    "*** streaming [window=%d] *** : %s    ----> STORE ALL WINDOW\n",
+                    "    ----> Current Window [size=%d] %s\n    ----> STORE ALL WINDOW\n\n",
                     windowContentSize, windowContent.trim());
         }
     }
