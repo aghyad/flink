@@ -33,7 +33,7 @@ public class MyCountWithTimeoutTrigger<T, W extends Window> extends Trigger<T, W
         String elementValue = ((MyDataHashMap) element).getValue();
         String elementTripId = ((MyDataHashMap) element).getTripId();
 
-        System.out.printf("+ %s [Trip: %s]\n", elementValue, elementTripId);
+        System.out.printf("\n+ %s [Trip: %s]\n", elementValue, elementTripId);
 
         if (currentDeadline == deadlineDesc.getDefaultValue()) {
             final long nextProcessingTime = currentTimeMs + (onProcessingTimeoutInSecs * 1000);
@@ -52,7 +52,8 @@ public class MyCountWithTimeoutTrigger<T, W extends Window> extends Trigger<T, W
         final ValueState<Long> deadline = ctx.getPartitionedState(deadlineDesc);
         final long currentDeadline = deadline.value();
 
-        System.out.printf("  waiting %d sec for more data\n", onProcessingTimeoutInSecs);
+        //        System.out.printf("  waiting %d sec for more data\n", onProcessingTimeoutInSecs);
+        System.out.printf(".");
 
         // fire only if the deadline hasn't changed since registering this timer
         if (currentTimeMs >= currentDeadline) {
@@ -71,7 +72,7 @@ public class MyCountWithTimeoutTrigger<T, W extends Window> extends Trigger<T, W
 
     @Override
     public void clear(W window, TriggerContext ctx) throws Exception {
-        System.out.println("\n*** clear trigger ...\n");
+        System.out.println("\n*** Clear trigger\n");
         final ValueState<Long> deadline = ctx.getPartitionedState(deadlineDesc);
         final long deadlineValue = deadline.value();
         if (deadlineValue != deadlineDesc.getDefaultValue()) {
@@ -82,7 +83,7 @@ public class MyCountWithTimeoutTrigger<T, W extends Window> extends Trigger<T, W
 
     private TriggerResult fire(ValueState<Long> deadline, ValueState<Long> count)
             throws IOException {
-        System.out.println("\n*** FIRING ...");
+        System.out.println("\n\n*** FIRING:");
         deadline.update(Long.MAX_VALUE);
         return TriggerResult.FIRE;
     }

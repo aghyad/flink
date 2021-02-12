@@ -62,14 +62,14 @@ public class MyWindowFunction
             }
 
             System.out.printf(
-                    "    ----> Current Window  [size=%d] %s\n    ----> Store Subwindow [size=%d] %s\n\n",
+                    "    ----> Current Window  [size=%d] %s\n    ----> Store Subwindow [size=%d] %s\n",
                     windowContentSize,
                     windowContent.trim(),
                     subWindowContentSize,
                     subWindowContent.trim());
         } else {
             System.out.printf(
-                    "    ----> Current Window [size=%d] %s\n    ----> STORE ALL WINDOW\n\n",
+                    "    ----> Current Window [size=%d] %s\n    ----> STORE ALL WINDOW\n",
                     windowContentSize, windowContent.trim());
         }
     }
