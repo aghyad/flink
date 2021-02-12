@@ -48,4 +48,3 @@ M53     ,   8     ,   VIN123ABC567    ,   53    ,   TRIPID2
 M53     ,   8     ,   VIN888ABC999    ,   53    ,   TRIPID81
 %%%%    ,   30    ,   VIN888ABC999    ,   103   ,   TRIPID98
 %%%%    ,   30    ,   VIN123ABC567    ,   103   ,   TRIPID3
-
