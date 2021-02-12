@@ -33,18 +33,19 @@ public class MyCountWithTimeoutTrigger<T, W extends Window> extends Trigger<T, W
         String elementTripId = ((MyDataHashMap) element).getTripId();
 
         System.out.printf("onElement: %s [Trip: %s]\n", elementValue, elementTripId);
-        System.out.printf("         currentDeadline=%d\n", currentDeadline);
-        System.out.printf("         currentTimeMs=%d\n", currentTimeMs);
+        //        System.out.printf("         currentDeadline=%d\n", currentDeadline);
+        //        System.out.printf("         currentTimeMs=%d\n", currentTimeMs);
 
         if (currentDeadline == deadlineDesc.getDefaultValue()) {
             final long nextProcessingTime = currentTimeMs + 1000;
             ctx.registerProcessingTimeTimer(nextProcessingTime);
-            System.out.printf("         nextProcessingTime = %d\n", nextProcessingTime);
+            //            System.out.printf("         nextProcessingTime = %d\n",
+            // nextProcessingTime);
         }
 
         final long nextDeadline = currentTimeMs + timeoutMs;
         deadline.update(nextDeadline);
-        System.out.printf("         nextDeadline = %d\n", nextDeadline);
+        //        System.out.printf("         nextDeadline = %d\n", nextDeadline);
 
         return TriggerResult.CONTINUE;
     }
@@ -56,8 +57,8 @@ public class MyCountWithTimeoutTrigger<T, W extends Window> extends Trigger<T, W
         final long currentDeadline = deadline.value();
 
         System.out.println("onProcessingTime");
-        System.out.printf("                currentTime=%d\n", currentTimeMs);
-        System.out.printf("                currentDeadline=%d\n", currentDeadline);
+        //        System.out.printf("                currentTime=%d\n", currentTimeMs);
+        //        System.out.printf("                currentDeadline=%d\n", currentDeadline);
 
         // fire only if the deadline hasn't changed since registering this timer
         if (currentTimeMs >= currentDeadline) {
@@ -65,7 +66,8 @@ public class MyCountWithTimeoutTrigger<T, W extends Window> extends Trigger<T, W
         } else {
             final long nextProcessingTime = currentTimeMs + 1000;
             ctx.registerProcessingTimeTimer(nextProcessingTime);
-            System.out.printf("                nextProcessingTime = %d\n", nextProcessingTime);
+            //            System.out.printf("                nextProcessingTime = %d\n",
+            // nextProcessingTime);
             return TriggerResult.CONTINUE;
         }
     }
@@ -77,7 +79,6 @@ public class MyCountWithTimeoutTrigger<T, W extends Window> extends Trigger<T, W
 
     @Override
     public void clear(W window, TriggerContext ctx) throws Exception {
-
         System.out.println("clear trigger ...");
 
         final ValueState<Long> deadline = ctx.getPartitionedState(deadlineDesc);
@@ -91,7 +92,7 @@ public class MyCountWithTimeoutTrigger<T, W extends Window> extends Trigger<T, W
     private TriggerResult fire(ValueState<Long> deadline, ValueState<Long> count)
             throws IOException {
         System.out.println("\nFIRING");
-        System.out.printf("     count=%d", count.value());
+        System.out.printf("     count=%d\n", count.value());
 
         deadline.update(Long.MAX_VALUE);
         return TriggerResult.FIRE;

@@ -21,7 +21,7 @@ M20     ,   1     ,   VIN123ABC567    ,   20    ,   TRIPID1
 M50     ,   30    ,   VIN123ABC567    ,   50    ,   TRIPID2
 M51     ,   1     ,   VIN123ABC567    ,   51    ,   TRIPID2
 M52     ,   3     ,   VIN123ABC567    ,   52    ,   TRIPID2
-M53     ,   6     ,   VIN123ABC567    ,   53    ,   TRIPID2
+M53     ,   8     ,   VIN123ABC567    ,   53    ,   TRIPID2
 M54     ,   1     ,   VIN123ABC567    ,   54    ,   TRIPID2
 M55     ,   1     ,   VIN123ABC567    ,   55    ,   TRIPID2
 M56     ,   1     ,   VIN123ABC567    ,   56    ,   TRIPID2
@@ -33,7 +33,7 @@ M61     ,   1     ,   VIN123ABC567    ,   61    ,   TRIPID2
 M62     ,   1     ,   VIN123ABC567    ,   62    ,   TRIPID2
 M63     ,   1     ,   VIN123ABC567    ,   63    ,   TRIPID2
 M64     ,   1     ,   VIN123ABC567    ,   64    ,   TRIPID2
-M65     ,   5     ,   VIN123ABC567    ,   65    ,   TRIPID2
+M65     ,   8     ,   VIN123ABC567    ,   65    ,   TRIPID2
 M66     ,   3     ,   VIN123ABC567    ,   66    ,   TRIPID2
 M67     ,   1     ,   VIN123ABC567    ,   67    ,   TRIPID2
 M68     ,   2     ,   VIN123ABC567    ,   68    ,   TRIPID2
