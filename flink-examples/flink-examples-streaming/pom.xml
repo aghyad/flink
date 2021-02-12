@@ -290,6 +290,37 @@ under the License.
 						</configuration>
 					</execution>
 
+					<!-- SlideWindowSimulation6 -->
+					<execution>
+						<id>SlideWindowSimulation6</id>
+						<phase>package</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+						<configuration>
+							<classifier>SlideWindowSimulation6</classifier>
+
+							<archive>
+								<manifestEntries>
+									<program-class>org.apache.flink.streaming.examples.pvl.simulation6.SlideWindowSimulation6</program-class>
+								</manifestEntries>
+							</archive>
+
+							<includes>
+								<include>org/apache/flink/streaming/examples/pvl/simulation6/SlideWindowSimulation6.class</include>
+								<include>org/apache/flink/streaming/examples/pvl/simulation6/util/MyDataHashMap.class</include>
+								<include>org/apache/flink/streaming/examples/pvl/simulation6/util/DataDictionary.class</include>
+								<include>org/apache/flink/streaming/examples/pvl/simulation6/util/DataDictionaryLocalImpl.class</include>
+								<include>org/apache/flink/streaming/examples/pvl/simulation6/util/DataDictionaryCloudImpl.class</include>
+								<include>org/apache/flink/streaming/examples/pvl/simulation6/util/MyWindowFunction.class</include>
+								<include>org/apache/flink/streaming/examples/pvl/simulation6/util/DataLoader.class</include>
+								<include>org/apache/flink/streaming/examples/pvl/simulation6/util/CountWithTimeoutTrigger.class</include>
+								<include>META-INF/LICENSE</include>
+								<include>META-INF/NOTICE</include>
+							</includes>
+						</configuration>
+					</execution>
+
 				</executions>
 			</plugin>
 
@@ -381,6 +412,7 @@ under the License.
 								<copy file="${project.basedir}/target/flink-examples-streaming_${scala.binary.version}-${project.version}-SlideWindowSimulation3.jar" tofile="${project.basedir}/target/SlideWindowSimulation3.jar" />
 								<copy file="${project.basedir}/target/flink-examples-streaming_${scala.binary.version}-${project.version}-SlideWindowSimulation4.jar" tofile="${project.basedir}/target/SlideWindowSimulation4.jar" />
 								<copy file="${project.basedir}/target/flink-examples-streaming_${scala.binary.version}-${project.version}-SlideWindowSimulation5.jar" tofile="${project.basedir}/target/SlideWindowSimulation5.jar" />
+								<copy file="${project.basedir}/target/flink-examples-streaming_${scala.binary.version}-${project.version}-SlideWindowSimulation6.jar" tofile="${project.basedir}/target/SlideWindowSimulation6.jar" />
 							</target>
 						</configuration>
 					</execution>

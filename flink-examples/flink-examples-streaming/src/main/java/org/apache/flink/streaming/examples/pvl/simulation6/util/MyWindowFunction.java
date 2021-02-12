@@ -1,0 +1,39 @@
+package org.apache.flink.streaming.examples.pvl.simulation6.util;
+
+import org.apache.flink.streaming.api.functions.windowing.WindowFunction;
+import org.apache.flink.streaming.api.windowing.windows.GlobalWindow;
+import org.apache.flink.util.Collector;
+
+public class MyWindowFunction
+        implements WindowFunction<MyDataHashMap, String, String, GlobalWindow> {
+
+    private int dumpToDynamoSize;
+
+    public MyWindowFunction(int dumpToDynamoSize) {
+        this.dumpToDynamoSize = dumpToDynamoSize;
+    }
+
+    @Override
+    public void apply(
+            String s, GlobalWindow window, Iterable<MyDataHashMap> elements, Collector<String> out)
+            throws Exception {
+
+        int windowContentSize = 0;
+        String windowContent = "";
+
+        for (MyDataHashMap elem : elements) {
+            windowContent += " " + elem.getValue();
+            windowContentSize++;
+        }
+
+        if (windowContentSize == dumpToDynamoSize) {
+            System.out.printf(
+                    "*** streaming [window=%d] *** : %s    ----> STORE DATA\n",
+                    windowContentSize, windowContent.trim());
+        } else {
+            System.out.printf(
+                    "*** streaming [window=%d] *** : %s\n",
+                    windowContentSize, windowContent.trim());
+        }
+    }
+}
