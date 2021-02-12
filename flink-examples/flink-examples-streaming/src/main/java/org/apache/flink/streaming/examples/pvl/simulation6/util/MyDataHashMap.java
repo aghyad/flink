@@ -8,11 +8,16 @@ public class MyDataHashMap {
     public HashMap<String, Object> dataElement = new HashMap<String, Object>();
 
     public MyDataHashMap(
-            String value, String partitionKey, int delayInSecs, Timestamp thisEventTimestamp) {
+            String value,
+            String partitionKey,
+            int delayInSecs,
+            Timestamp thisEventTimestamp,
+            String tripId) {
         dataElement.put("eventTimestamp", thisEventTimestamp);
         dataElement.put("value", value);
         dataElement.put("partitionKey", partitionKey);
         dataElement.put("delayInSecs", delayInSecs);
+        dataElement.put("tripId", tripId);
     }
 
     public Timestamp getEventTimestamp() {
@@ -29,6 +34,10 @@ public class MyDataHashMap {
 
     public String getValue() {
         return (String) dataElement.get("value");
+    }
+
+    public String getTripId() {
+        return (String) dataElement.get("tripId");
     }
 
     public void injectDelay() throws InterruptedException {

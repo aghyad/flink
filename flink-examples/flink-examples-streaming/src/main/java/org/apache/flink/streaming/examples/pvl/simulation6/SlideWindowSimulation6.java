@@ -3,8 +3,8 @@ package org.apache.flink.streaming.examples.pvl.simulation6;
 import org.apache.flink.api.java.utils.ParameterTool;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
-import org.apache.flink.streaming.examples.pvl.simulation6.util.CountWithTimeoutTrigger;
 import org.apache.flink.streaming.examples.pvl.simulation6.util.DataDictionaryLocalImpl;
+import org.apache.flink.streaming.examples.pvl.simulation6.util.MyCountWithTimeoutTrigger;
 import org.apache.flink.streaming.examples.pvl.simulation6.util.MyDataHashMap;
 import org.apache.flink.streaming.examples.pvl.simulation6.util.MyWindowFunction;
 
@@ -32,7 +32,7 @@ public class SlideWindowSimulation6 {
         final int windowSize = params.getInt("window", 15);
         final int slideSize = params.getInt("slide", 1);
         final int maxTimeoutInSecs = params.getInt("maxTimeout", 5);
-        final int dumpToDynamoSize = params.getInt("dumpToDynamoSize", 10);
+        final int dumpToSinkSize = params.getInt("dumpToSinkSize", 10);
 
         // get the default input data
         System.out.println("Executing SlideWindowSimulation4 example with default input data set.");
@@ -59,8 +59,8 @@ public class SlideWindowSimulation6 {
                         })
                 .keyBy(dataElement -> dataElement.getPartitionKey())
                 .countWindow(windowSize, slideSize)
-                .trigger(CountWithTimeoutTrigger.of(windowSize, maxTimeoutInSecs * 1000))
-                .apply(new MyWindowFunction(dumpToDynamoSize));
+                .trigger(MyCountWithTimeoutTrigger.of(windowSize, maxTimeoutInSecs * 1000))
+                .apply(new MyWindowFunction(dumpToSinkSize));
 
         // execute program
         env.execute("SlideWindowSimulation6");

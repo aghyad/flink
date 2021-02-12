@@ -29,7 +29,8 @@ public class DataDictionaryLocalImpl implements DataDictionary {
                                 myData.get(i)[2],
                                 Integer.parseInt(myData.get(i)[1]),
                                 calculateThisEventTimestamp(
-                                        baseTimestamp, Integer.parseInt(myData.get(i)[3])));
+                                        baseTimestamp, Integer.parseInt(myData.get(i)[3])),
+                                myData.get(i)[4]);
             }
         }
     }

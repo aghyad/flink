@@ -314,7 +314,7 @@ under the License.
 								<include>org/apache/flink/streaming/examples/pvl/simulation6/util/DataDictionaryCloudImpl.class</include>
 								<include>org/apache/flink/streaming/examples/pvl/simulation6/util/MyWindowFunction.class</include>
 								<include>org/apache/flink/streaming/examples/pvl/simulation6/util/DataLoader.class</include>
-								<include>org/apache/flink/streaming/examples/pvl/simulation6/util/CountWithTimeoutTrigger.class</include>
+								<include>org/apache/flink/streaming/examples/pvl/simulation6/util/MyCountWithTimeoutTrigger.class</include>
 								<include>META-INF/LICENSE</include>
 								<include>META-INF/NOTICE</include>
 							</includes>
