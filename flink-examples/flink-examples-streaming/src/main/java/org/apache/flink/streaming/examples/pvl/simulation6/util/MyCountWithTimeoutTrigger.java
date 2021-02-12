@@ -26,6 +26,7 @@ public class MyCountWithTimeoutTrigger<T, W extends Window> extends Trigger<T, W
     @Override
     public TriggerResult onElement(T element, long timestamp, W window, TriggerContext ctx)
             throws Exception {
+        // everytime a new element is received, this function gets called
         final ValueState<Long> deadline = ctx.getPartitionedState(deadlineDesc);
         final long currentDeadline = deadline.value();
         final long currentTimeMs = System.currentTimeMillis();
@@ -36,13 +37,18 @@ public class MyCountWithTimeoutTrigger<T, W extends Window> extends Trigger<T, W
         System.out.printf("\n+ %s [Trip: %s]\n", elementValue, elementTripId);
 
         if (currentDeadline == deadlineDesc.getDefaultValue()) {
+            // runs at the beginning of the flow or after evaluation has been dispatched:
+            // if the deadline hasn't changed since registering the deadline timer, setup the
+            // processing time checker timer
             final long nextProcessingTime = currentTimeMs + (onProcessingTimeoutInSecs * 1000);
             ctx.registerProcessingTimeTimer(nextProcessingTime);
         }
 
+        // and always make sure to progress the deadline timer when a new element is received
         final long nextDeadline = currentTimeMs + timeoutMs;
         deadline.update(nextDeadline);
 
+        // but do not dispatch the evaluation function
         return TriggerResult.CONTINUE;
     }
 
@@ -52,13 +58,13 @@ public class MyCountWithTimeoutTrigger<T, W extends Window> extends Trigger<T, W
         final ValueState<Long> deadline = ctx.getPartitionedState(deadlineDesc);
         final long currentDeadline = deadline.value();
 
-        //        System.out.printf("  waiting %d sec for more data\n", onProcessingTimeoutInSecs);
         System.out.printf(".");
 
-        // fire only if the deadline hasn't changed since registering this timer
         if (currentTimeMs >= currentDeadline) {
+            // if the deadline has been reached, fire (dispatch) the evaluation function
             return fire(deadline, ctx.getPartitionedState(countDesc));
         } else {
+            // otherwise, set the next processing time checker, and continue
             final long nextProcessingTime = currentTimeMs + (onProcessingTimeoutInSecs * 1000);
             ctx.registerProcessingTimeTimer(nextProcessingTime);
             return TriggerResult.CONTINUE;
@@ -83,6 +89,8 @@ public class MyCountWithTimeoutTrigger<T, W extends Window> extends Trigger<T, W
 
     private TriggerResult fire(ValueState<Long> deadline, ValueState<Long> count)
             throws IOException {
+        // a wrapper method to the evaluation firing functionality to make sure we reset
+        // the deadline time to its baseline value
         System.out.println("\n\n*** FIRING:");
         deadline.update(Long.MAX_VALUE);
         return TriggerResult.FIRE;
